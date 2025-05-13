@@ -56,7 +56,6 @@ public class ProductPersistenceAdapter implements ProductPersistencePort {
         productSaved.setPrice(product.getPrice());
         productSaved.setStockQuantity(product.getStockQuantity());
         productSaved.setCategory(product.getCategory());
-        productSaved.setUpdatedAt(LocalDateTime.now());
         productDao.update(productSaved);
     }
 

@@ -2,12 +2,16 @@ package br.com.productmanagement.adapter.persistence.entity;
 
 import br.com.productmanagement.core.domain.enums.Category;
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "product", schema = "product_schema")
+@EntityListeners(AuditingEntityListener.class)
 public class ProductEntity {
 
     @Id
@@ -22,6 +26,11 @@ public class ProductEntity {
     private Integer stockQuantity;
     @Enumerated(EnumType.STRING)
     private Category category;
+    @CreatedDate
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+    @LastModifiedDate
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     public ProductEntity() {
@@ -82,6 +91,18 @@ public class ProductEntity {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
