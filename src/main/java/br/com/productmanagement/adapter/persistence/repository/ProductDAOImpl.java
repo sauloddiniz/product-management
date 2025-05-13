@@ -18,8 +18,11 @@ public class ProductDAOImpl implements ProductDAO {
 
     private static final Logger log = LoggerFactory.getLogger(ProductDAOImpl.class);
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
+
+    public ProductDAOImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     @Override
     public ProductEntity save(final ProductEntity product) {

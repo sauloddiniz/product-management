@@ -25,7 +25,15 @@ public class ProductEntity {
     private LocalDateTime updatedAt;
 
     public ProductEntity() {
+    }
 
+    public ProductEntity(Long id, String name, String description, BigDecimal price, Integer stockQuantity, Category category) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+        this.category = category;
     }
 
     public Long getId() {
