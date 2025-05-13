@@ -1,7 +1,6 @@
 package br.com.productmanagement.adapter.persistence.repository;
 
 import br.com.productmanagement.adapter.persistence.entity.ProductEntity;
-import br.com.productmanagement.core.domain.Product;
 import br.com.productmanagement.core.domain.enums.Category;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -10,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,16 +67,6 @@ public class ProductDAOImpl implements ProductDAO {
         log.debug("Iniciando atualização do produto. ID: {}, Nome: {}", product.getId(), product.getName());
         entityManager.merge(product);
         log.info("Produto atualizado com sucesso. ID: {}, Nome: {}", product.getId(), product.getName());
-    }
-
-    private ProductEntity updateProduct(ProductEntity productEntity, Product product) {
-        productEntity.setName(product.getName());
-        productEntity.setDescription(product.getDescription());
-        productEntity.setPrice(product.getPrice());
-        productEntity.setStockQuantity(product.getStockQuantity());
-        productEntity.setCategory(product.getCategory());
-        productEntity.setUpdatedAt(LocalDateTime.now());
-        return productEntity;
     }
 
     @Override
