@@ -1,6 +1,5 @@
 package br.com.productmanagement.adapter.input.dto;
 
-import br.com.productmanagement.core.domain.enums.Category;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.math.BigDecimal;
@@ -24,6 +23,6 @@ public record ProductResponseDto(
         @Schema(
                 description = "Categoria do produto"
         )
-        Category category
+        String category
 ) {
 }

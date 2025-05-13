@@ -1,7 +1,6 @@
 package br.com.productmanagement.adapter.persistence.repository;
 
 import br.com.productmanagement.adapter.persistence.entity.ProductEntity;
-import br.com.productmanagement.adapter.persistence.repository.mapper.ProductMapper;
 import br.com.productmanagement.core.domain.Product;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -14,29 +13,25 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static br.com.productmanagement.adapter.persistence.repository.mapper.ProductMapper.toDomain;
-import static br.com.productmanagement.adapter.persistence.repository.mapper.ProductMapper.toEntity;
-
 @Component
 @Transactional
 public class ProductDAOImpl implements ProductDAO {
 
     private static final Logger log = LoggerFactory.getLogger(ProductDAOImpl.class);
-    
+
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    public Product save(final Product product) {
+    public ProductEntity save(final ProductEntity product) {
         log.debug("Iniciando persistência do produto: {}", product.getName());
-        ProductEntity productEntity = toEntity(product);
-        entityManager.persist(productEntity);
-        log.info("Produto persistido com sucesso. ID: {}, Nome: {}", productEntity.getId(), productEntity.getName());
-        return toDomain(productEntity);
+        entityManager.persist(product);
+        log.info("Produto persistido com sucesso. ID: {}, Nome: {}", product.getId(), product.getName());
+        return product;
     }
 
     @Override
-    public Optional<Product> findById(Long id) {
+    public Optional<ProductEntity> findById(Long id) {
         log.debug("Buscando produto no banco de dados. ID: {}", id);
         ProductEntity productEntity = entityManager.find(ProductEntity.class, id);
         if (productEntity == null) {
@@ -44,40 +39,38 @@ public class ProductDAOImpl implements ProductDAO {
             return Optional.empty();
         }
         log.debug("Produto encontrado. ID: {}, Nome: {}", productEntity.getId(), productEntity.getName());
-        return Optional.ofNullable(toDomain(productEntity));
+        return Optional.of(productEntity);
     }
 
     @Override
-    public List<Product> findAll() {
+    public List<ProductEntity> findAll() {
         log.debug("Iniciando busca de todos os produtos");
         List<ProductEntity> productEntities = entityManager
                 .createQuery("SELECT p FROM ProductEntity p", ProductEntity.class)
                 .getResultList();
         log.info("Total de produtos encontrados: {}", productEntities.size());
-        return productEntities
-                .stream()
-                .map(ProductMapper::toDomain)
-                .toList();
+        return productEntities;
     }
 
     @Override
-    public void update(Product product) {
+    public void update(ProductEntity product) {
         log.debug("Iniciando atualização do produto. ID: {}, Nome: {}", product.getId(), product.getName());
-        ProductEntity productEntity = toEntity(product);
-        productEntity.setUpdatedAt(LocalDateTime.now());
-        entityManager.merge(productEntity);
+        entityManager.merge(product);
         log.info("Produto atualizado com sucesso. ID: {}, Nome: {}", product.getId(), product.getName());
     }
 
+    private ProductEntity updateProduct(ProductEntity productEntity, Product product) {
+        productEntity.setName(product.getName());
+        productEntity.setDescription(product.getDescription());
+        productEntity.setPrice(product.getPrice());
+        productEntity.setStockQuantity(product.getStockQuantity());
+        productEntity.setCategory(product.getCategory());
+        productEntity.setUpdatedAt(LocalDateTime.now());
+        return productEntity;
+    }
+
     @Override
-    public void deleteById(Product product) {
-        log.debug("Iniciando exclusão do produto. ID: {}", product.getId());
-        ProductEntity productEntity = toEntity(product);
-        if (productEntity != null) {
-            entityManager.remove(productEntity);
-            log.info("Produto excluído com sucesso. ID: {}", product.getId());
-        } else {
-            log.warn("Tentativa de exclusão de produto inexistente. ID: {}", product.getId());
-        }
+    public void deleteById(ProductEntity product) {
+        entityManager.remove(product);
     }
 }

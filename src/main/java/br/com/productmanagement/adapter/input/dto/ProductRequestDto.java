@@ -1,6 +1,5 @@
 package br.com.productmanagement.adapter.input.dto;
 
-import br.com.productmanagement.core.domain.enums.Category;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.math.BigDecimal;
@@ -18,9 +17,6 @@ public record ProductRequestDto(
         @Schema(description = "Quantidade em estoque", example = "10")
         Integer stockQuantity,
 
-        @Schema(
-            description = "Categoria do produto. Opções: FOOD, CLOTHES, ELECTRONICS, OTHER",
-            example = "OTHER"
-        )
-        Category category
+        @Schema(description = "Categoria do produto. Opções: food, clothes, eletronics, other", example = "other")
+        String category
 ) {}

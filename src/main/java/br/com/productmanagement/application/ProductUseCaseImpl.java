@@ -31,8 +31,7 @@ public class ProductUseCaseImpl implements ProductUseCase {
     @Override
     public void updateProduct(final ProductRequestDto productRequestDto, final Long id) {
         Product product = toDomain(productRequestDto);
-        product.setId(id);
-        productPersistencePort.update(product);
+        productPersistencePort.update(product, id);
     }
 
     @Override

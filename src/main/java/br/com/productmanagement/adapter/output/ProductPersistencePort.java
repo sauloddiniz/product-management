@@ -8,6 +8,6 @@ public interface ProductPersistencePort {
     Product save(final Product product);
     Product findById(final Long id);
     List<Product> findAll();
-    void update(final Product product);
+    void update(final Product product, final Long id);
     void deleteById(final Long id);
 }

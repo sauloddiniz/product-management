@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "Produtos", description = "Operações de CRUD para produtos")
+@Tag(name = "Products", description = "Operações de CRUD para produtos")
 @RequestMapping("/api/v1/products")
 public interface ProductControllerApi {
 

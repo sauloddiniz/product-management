@@ -1,5 +1,6 @@
 package br.com.productmanagement.config;
 
+import br.com.productmanagement.core.exception.InvalidCategoryExecption;
 import br.com.productmanagement.core.exception.InvalidProductException;
 import br.com.productmanagement.core.exception.ProductNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,7 +23,13 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(InvalidProductException.class)
-    public ResponseEntity<Map<String, Object>> handleProductNotFoundException(InvalidProductException ex, HttpServletRequest request) {
+    public ResponseEntity<Map<String, Object>> handleInvalidProductException(InvalidProductException ex, HttpServletRequest request) {
+        Map<String, Object> body = extractErrorInfo(ex, request);
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidCategoryExecption.class)
+    public ResponseEntity<Map<String, Object>> handleInvalidCategoryException(InvalidCategoryExecption ex, HttpServletRequest request) {
         Map<String, Object> body = extractErrorInfo(ex, request);
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }

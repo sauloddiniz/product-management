@@ -5,74 +5,59 @@ import br.com.productmanagement.core.exception.InvalidProductException;
 
 import java.math.BigDecimal;
 
-public class Product {
-    private Long id;
-    private String name;
-    private String description;
-    private BigDecimal price;
-    private Integer stockQuantity;
-    private Category category;
+import static br.com.productmanagement.core.domain.enums.Category.fromDescription;
 
-    public Product() {
+public class Product {
+
+    private Long id;
+    private final String name;
+    private final String description;
+    private final BigDecimal price;
+    private final Integer stockQuantity;
+    private final Category category;
+
+    public Product(String name, String description, BigDecimal price, Integer stockQuantity, String category) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+        this.category = fromDescription(category);
+        validProductValue();
+        validNameValue();
+        validStockValue();
     }
 
-    public Product(String name, String description, BigDecimal price, Integer stockQuantity, Category category) {
+    public Product(Long id, String name, String description, BigDecimal price, Integer stockQuantity, Category category) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.stockQuantity = stockQuantity;
         this.category = category;
-        validProductValue();
-        validNameValue();
-        validStockValue();
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public BigDecimal getPrice() {
         return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
     }
 
     public Integer getStockQuantity() {
         return stockQuantity;
     }
 
-    public void setStockQuantity(Integer stockQuantity) {
-        this.stockQuantity = stockQuantity;
-    }
-
     public Category getCategory() {
         return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 
     private void validProductValue() {
