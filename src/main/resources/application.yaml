@@ -1,5 +1,7 @@
 server:
   port: 8080
+  servlet:
+    context-path: "/product-management"
 
 logging:
   level:
@@ -51,7 +53,7 @@ management:
 info:
   app:
     name: Product Manager
-    description: "API REST para gerenciamento de produtos com controle de estoque e operações CRUD integradas."
+    description: "API REST para gerenciamento de produtos com controle de estoque e operaï¿½ï¿½es CRUD integradas."
     version: 1.0.0
     database: H2
 
