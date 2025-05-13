@@ -1,12 +1,15 @@
 # Gerenciamento de Produtos (Product Management)
 
 ## 📋 Descrição
+
 API REST para gerenciamento de produtos utilizando arquitetura hexagonal e princípios de Clean Architecture.
 
 ## 🏗️ Arquitetura
+
 O projeto segue a **Arquitetura Hexagonal** (também conhecida como Ports and Adapters).
 
 ## 🛠️ Tecnologias
+
 - Java 17
 - Spring Boot 3.4.3
 - Spring Data JPA
@@ -18,6 +21,7 @@ O projeto segue a **Arquitetura Hexagonal** (também conhecida como Ports and Ad
 - Maven
 
 ## ✨ Features
+
 - CRUD completo de produtos
 - Categorização de produtos
 - Cache para otimização de consultas
@@ -26,15 +30,19 @@ O projeto segue a **Arquitetura Hexagonal** (também conhecida como Ports and Ad
 - Tratamento global de exceções
 - Validações de domínio
 
-
 ## Guia de Uso
+
 ### Pré-requisitos para o Ambiente
+
 Antes de começar, certifique-se de que o seu ambiente possui as seguintes ferramentas configuradas:
 
-- **Java 17**: Certifique-se de ter o JDK (Java Development Kit). [Guia de instalação do Java](https://openjdk.org/install/).
-- **Maven 3.6**: Necessário para o gerenciamento de dependências e compilação do projeto. [Guia de instalação do Maven](https://maven.apache.org/install.html).
+- **Java 17**: Certifique-se de ter o JDK (Java Development
+  Kit). [Guia de instalação do Java](https://openjdk.org/install/).
+- **Maven 3.6**: Necessário para o gerenciamento de dependências e compilação do
+  projeto. [Guia de instalação do Maven](https://maven.apache.org/install.html).
 
 ---
+
 ### **Passos para Execução**
 
 1. **Clonar o repositório**:
@@ -57,7 +65,7 @@ Antes de começar, certifique-se de que o seu ambiente possui as seguintes ferra
    ```bash
    mvn spring-boot:run
    ```
-   
+
    **Opção 2 - Via JAR**:
    ```bash
    java -jar target/product-management-0.0.1-SNAPSHOT.jar
@@ -65,10 +73,9 @@ Antes de começar, certifique-se de que o seu ambiente possui as seguintes ferra
    A aplicacao nao tem configuracao de profile:
 
 4. **Verificar se a aplicação está rodando**:
-   ```bash
-   cur http://localhost:8080/product-management/actuator/health
-   ```
-   Você deverá ver a resposta: `{"status":"UP"}`
+
+- [actuator - health](http://localhost:8080/product-management/actuator/health)
+  Você deverá ver a resposta: `{"status":"UP"}`
 ---
 
 ### Documentação dos Endpoints
@@ -77,4 +84,5 @@ Com a aplicação em execução, a documentação da API estará disponível atr
 
 - **Ambiente local**:
     - [Swagger UI - Local](http://localhost:8080/product-management/swagger-ui/index.html)
+
 ---
