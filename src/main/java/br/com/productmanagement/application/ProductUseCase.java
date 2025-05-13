@@ -9,6 +9,6 @@ public interface ProductUseCase {
     Long createProduct(final ProductRequestDto productRequestDto);
     void updateProduct(final ProductRequestDto productRequestDto, final Long id);
     ProductResponseDto getProductById(final Long id);
-    List<ProductResponseDto> getProducts();
+    List<ProductResponseDto> getProducts(final String categoria);
     void deleteProductById(final Long id);
 }

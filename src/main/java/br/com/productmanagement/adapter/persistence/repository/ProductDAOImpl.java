@@ -2,6 +2,7 @@ package br.com.productmanagement.adapter.persistence.repository;
 
 import br.com.productmanagement.adapter.persistence.entity.ProductEntity;
 import br.com.productmanagement.core.domain.Product;
+import br.com.productmanagement.core.domain.enums.Category;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -47,6 +48,17 @@ public class ProductDAOImpl implements ProductDAO {
         log.debug("Iniciando busca de todos os produtos");
         List<ProductEntity> productEntities = entityManager
                 .createQuery("SELECT p FROM ProductEntity p", ProductEntity.class)
+                .getResultList();
+        log.info("Total de produtos encontrados: {}", productEntities.size());
+        return productEntities;
+    }
+
+    @Override
+    public List<ProductEntity> findAllByCategory(final Category category) {
+        log.debug("Iniciando busca de todos os produtos da categoria: {}", category.getDescription());
+        List<ProductEntity> productEntities = entityManager
+                .createQuery("SELECT p FROM ProductEntity p WHERE p.category = :categoria", ProductEntity.class)
+                .setParameter("categoria", category)
                 .getResultList();
         log.info("Total de produtos encontrados: {}", productEntities.size());
         return productEntities;

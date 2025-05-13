@@ -5,6 +5,7 @@ import br.com.productmanagement.adapter.persistence.entity.ProductEntity;
 import br.com.productmanagement.adapter.persistence.repository.ProductDAO;
 import br.com.productmanagement.adapter.persistence.repository.mapper.ProductMapper;
 import br.com.productmanagement.core.domain.Product;
+import br.com.productmanagement.core.domain.enums.Category;
 import br.com.productmanagement.core.exception.ProductNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,8 +40,12 @@ public class ProductPersistenceAdapter implements ProductPersistencePort {
     }
 
     @Override
-    public List<Product> findAll() {
-        return productDao.findAll().stream().map(ProductMapper::toDomain).toList();
+    public List<Product> findAll(final Category category) {
+        List<ProductEntity> productEntities =
+                categoryIsNotEmpty(category)
+                        ? productDao.findAllByCategory(category)
+                        : productDao.findAll();
+        return productEntities.stream().map(ProductMapper::toDomain).toList();
     }
 
     @Override
@@ -69,4 +74,7 @@ public class ProductPersistenceAdapter implements ProductPersistencePort {
                 });
     }
 
+    private static boolean categoryIsNotEmpty(Category category) {
+        return category != null;
+    }
 }

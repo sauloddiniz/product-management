@@ -36,9 +36,9 @@ public class ProductController implements ProductControllerApi {
     }
 
     @Override
-    public ResponseEntity<List<ProductResponseDto>> getAllProducts() {
+    public ResponseEntity<List<ProductResponseDto>> getAllProducts(final String categoria) {
         log.info("Buscando lista de todos os produtos");
-        List<ProductResponseDto> products = productUseCase.getProducts();
+        List<ProductResponseDto> products = productUseCase.getProducts(categoria);
         log.info("Encontrados {} produtos", products.size());
         return ResponseEntity.ok(products);
     }
