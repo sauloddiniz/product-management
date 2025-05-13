@@ -4,7 +4,7 @@
 API REST para gerenciamento de produtos utilizando arquitetura hexagonal e princípios de Clean Architecture.
 
 ## 🏗️ Arquitetura
-O projeto segue a **Arquitetura Hexagonal** (também conhecida como Ports and Adapters), com as seguintes camadas:
+O projeto segue a **Arquitetura Hexagonal** (também conhecida como Ports and Adapters).
 
 ## 🛠️ Tecnologias
 - Java 17
@@ -66,7 +66,7 @@ Antes de começar, certifique-se de que o seu ambiente possui as seguintes ferra
 
 4. **Verificar se a aplicação está rodando**:
    ```bash
-   http://localhost:8080/product-management/actuator/health
+   cur http://localhost:8080/product-management/actuator/health
    ```
    Você deverá ver a resposta: `{"status":"UP"}`
 ---
