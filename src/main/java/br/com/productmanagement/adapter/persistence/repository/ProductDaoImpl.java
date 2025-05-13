@@ -1,9 +1,7 @@
 package br.com.productmanagement.adapter.persistence.repository;
 
 import br.com.productmanagement.adapter.persistence.entity.ProductEntity;
-import br.com.productmanagement.config.CacheConfiguration;
 import br.com.productmanagement.core.domain.enums.Category;
-import jakarta.persistence.Cache;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
@@ -67,7 +65,7 @@ public class ProductDaoImpl implements ProductDAO {
                 .createQuery("SELECT p FROM ProductEntity p WHERE p.category = :categoria", ProductEntity.class)
                 .setParameter("categoria", category)
                 .getResultList();
-        log.info("Total de produtos encontrados: {}", productEntities.size());
+        log.info("Total de produtos com filtro encontrados: {}", productEntities.size());
         return productEntities;
     }
 

@@ -48,7 +48,6 @@ public interface ProductControllerApi {
                             name = "categoria",
                             description = "Categoria do produto (opcional)",
                             in = ParameterIn.QUERY,
-                            required = false,
                             schema = @Schema(type = "string")
                     )
             },
