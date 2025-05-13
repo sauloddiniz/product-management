@@ -74,8 +74,8 @@ Antes de começar, certifique-se de que o seu ambiente possui as seguintes ferra
 
 4. **Verificar se a aplicação está rodando**:
 
-- [actuator - health](http://localhost:8080/product-management/actuator/health)
-  Você deverá ver a resposta: `{"status":"UP"}`
+   - [actuator - health](http://localhost:8080/product-management/actuator/health)
+     Você deverá ver a resposta: `{"status":"UP"}`
 ---
 
 ### Documentação dos Endpoints
