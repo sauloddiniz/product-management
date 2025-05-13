@@ -60,13 +60,14 @@ public class ProductUseCaseImpl implements ProductUseCase {
     }
 
     private static Category converterCategory(String category) {
-        if (category != null || !category.isBlank()) {
+        if (category != null) {
             try {
                 return Category.fromDescription(category);
-            } catch (Exception exception) {
+            } catch (InvalidCategoryExecption exception) {
                 log.error("Erro ao tentar converter a categoria informada para enum: {}", exception.getMessage());
+                throw exception;
             }
         }
-        throw new InvalidCategoryExecption(category);
+        return null;
     }
 }

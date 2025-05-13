@@ -1,0 +1,22 @@
+INSERT INTO product_schema.product (name, description, price, stock_quantity, category)
+VALUES
+    ('Arroz Integral',        'Arroz integral de alta qualidade',             8.99,   100, 'FOOD'),
+    ('Chocolate',             'Chocolate meio amargo 70% cacau',              7.75,   120, 'FOOD'),
+    ('Feijão Carioca',        'Feijão tipo 1',                                6.95,   80,  'FOOD'),
+    ('Leite Desnatado',       'Leite desnatado longa vida',                   4.99,   60,  'FOOD'),
+    ('Biscoito Recheado',     'Biscoito sabor chocolate',                     3.50,   200, 'FOOD'),
+    ('Camiseta Básica',       'Camiseta 100% algodão',                        29.90,  250, 'CLOTHES'),
+    ('Calça Jeans',           'Calça jeans tradicional',                       120.00, 75,  'CLOTHES'),
+    ('Jaqueta Corta Vento',   'Jaqueta leve à prova d''água',                 199.90, 50,  'CLOTHES'),
+    ('Tênis Esportivo',       'Tênis para corrida, confortável',              229.99, 40,  'CLOTHES'),
+    ('Vestido Festa',         'Vestido elegante para festas',                 349.90, 15,  'CLOTHES'),
+    ('Telefone Celular',      'Smartphone 64GB, câmera 12MP',                 1200.00, 40,  'ELECTRONICS'),
+    ('Notebook Empresarial',  'Notebook i5, 16GB RAM, SSD 512GB',             3500.00, 14,  'ELECTRONICS'),
+    ('Fone de Ouvido',        'Fone Bluetooth com cancelamento de ruído',     199.90, 54,  'ELECTRONICS'),
+    ('Smart TV 50"',          'Smart TV 50 polegadas 4K',                     2500.00, 12,  'ELECTRONICS'),
+    ('Teclado Mecânico',      'Teclado gamer retroiluminado',                 329.90, 31,  'ELECTRONICS'),
+    ('Livro de Receitas',     'Receitas para o dia a dia',                    34.50,  80,  'OTHER'),
+    ('Agenda 2024',           'Agenda executiva capa dura',                   42.90,  90,  'OTHER'),
+    ('Mochila Escolar',       'Mochila ergonômica para notebooks',            149.99, 22,  'OTHER'),
+    ('Jogo de Tabuleiro',     'Jogo para diversão em família',                99.90,  55,  'OTHER'),
+    ('Copo Térmico',          'Copo térmico 500ml, mantém a temperatura',     49.90,  65,  'OTHER');
