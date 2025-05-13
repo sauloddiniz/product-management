@@ -3,23 +3,22 @@ package br.com.productmanagement.adapter.persistence.repository;
 import br.com.productmanagement.adapter.persistence.entity.ProductEntity;
 import br.com.productmanagement.core.domain.enums.Category;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
-@Component
 @Transactional
-public class ProductDAOImpl implements ProductDAO {
+public class ProductDaoImpl implements ProductDAO {
 
-    private static final Logger log = LoggerFactory.getLogger(ProductDAOImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(ProductDaoImpl.class);
+    private final EntityManager entityManager;
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    public ProductDaoImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     @Override
     public ProductEntity save(final ProductEntity product) {
@@ -53,7 +52,7 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public List<ProductEntity> findAllByCategory(final Category category) {
-        log.debug("Iniciando busca de todos os produtos da categoria: {}", category.getDescription());
+        log.debug("Iniciando busca de todos os produtos da categoria: {}", category.getDescriptionEn());
         List<ProductEntity> productEntities = entityManager
                 .createQuery("SELECT p FROM ProductEntity p WHERE p.category = :categoria", ProductEntity.class)
                 .setParameter("categoria", category)
