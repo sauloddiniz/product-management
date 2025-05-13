@@ -1,11 +1,16 @@
 package br.com.productmanagement.adapter.input;
 
+import br.com.productmanagement.adapter.input.dto.ProductRequestDto;
 import br.com.productmanagement.adapter.persistence.entity.ProductEntity;
+import br.com.productmanagement.application.ProductUseCase;
 import br.com.productmanagement.core.domain.enums.Category;
+import br.com.productmanagement.core.exception.InvalidCategoryExecption;
+import br.com.productmanagement.core.exception.InvalidProductException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,8 +22,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -46,19 +50,98 @@ class ProductControllerTest {
                 }
                 """;
 
-        ProductEntity savedProduct = new ProductEntity(
-                1L, "Smartphone", "iPhone 13", new BigDecimal("5000.00"), 15, Category.ELECTRONICS);
 
-        when(entityManager.merge(any(ProductEntity.class)))
-                .thenReturn(savedProduct);
+        when(entityManager.persist(Mockito.any(ProductEntity.class)))
+                .thenReturn(new ProductEntity(1L, "Smartphone", "iPhone 13", BigDecimal.valueOf(5000.00), 15, Category.ELECTRONICS))
 
         mockMvc.perform(post("/api/v1/products")
                         .content(requestBody)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
-                .andExpect(header().string("Location", endsWith("/api/v1/products/1")));
+                .andExpect(header().string("Location", "http://localhost/api/v1/products/1"))
+                .andReturn();
 
-        verify(entityManager).merge(any(ProductEntity.class));
+    }
+
+    @Test
+    @DisplayName("Deve retornar erro 400 quando tentar criar produto com preço negativo")
+    void shouldReturnBadRequestWhenPriceIsNegative() throws Exception {
+
+        String requestBody = """
+            {
+                "name": "Smartphone",
+                "description": "iPhone 13",
+                "price": -5000.00,
+                "stockQuantity": 15,
+                "category": "electronics"
+            }
+            """;
+
+        mockMvc.perform(post("/api/v1/products")
+                        .content(requestBody)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error").value("Invalid product: price is invalid, must be greater than zero"));
+    }
+
+    @Test
+    @DisplayName("Deve retornar erro 400 quando tentar criar produto sem nome")
+    void shouldReturnBadRequestWhenNameIsEmpty() throws Exception {
+        String requestBody = """
+            {
+                "name": "",
+                "description": "iPhone 13",
+                "price": 5000.00,
+                "stockQuantity": 15,
+                "category": "electronics"
+            }
+            """;
+
+        mockMvc.perform(post("/api/v1/products")
+                        .content(requestBody)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error").value("Invalid product: name is invalid, must be filled"));
+    }
+
+    @Test
+    @DisplayName("Deve retornar erro 400 quando tentar criar produto com quantidade de estoque negativa")
+    void shouldReturnBadRequestWhenStockQuantityIsNegative() throws Exception {
+        String requestBody = """
+            {
+                "name": "Smartphone",
+                "description": "iPhone 13",
+                "price": 5000.00,
+                "stockQuantity": -1,
+                "category": "electronics"
+            }
+            """;
+
+        mockMvc.perform(post("/api/v1/products")
+                        .content(requestBody)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error").value("Invalid product: stockQuantity is invalid, must be greater than zero"));
+    }
+
+    @Test
+    @DisplayName("Deve retornar erro 400 quando tentar criar produto com categoria inválida")
+    void shouldReturnBadRequestWhenCategoryIsInvalid() throws Exception {
+        String requestBody = """
+            {
+                "name": "Smartphone",
+                "description": "iPhone 13",
+                "price": 5000.00,
+                "stockQuantity": 15,
+                "category": "Moveis"
+            }
+            """;
+
+        mockMvc.perform(post("/api/v1/products")
+                        .content(requestBody)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error").value("Invalid category: Moveis"));
     }
 
     @Test
