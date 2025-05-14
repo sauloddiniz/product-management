@@ -40,6 +40,7 @@ Antes de começar, certifique-se de que o seu ambiente possui as seguintes ferra
   Kit). [Guia de instalação do Java](https://openjdk.org/install/).
 - **Maven 3.6**: Necessário para o gerenciamento de dependências e compilação do
   projeto. [Guia de instalação do Maven](https://maven.apache.org/install.html).
+- **Docker e Docker Compose** (opcional): Necessário para execução em containers. [Guia de instalação do Docker](https://docs.docker.com/get-docker/).
 
 ---
 
@@ -70,7 +71,11 @@ Antes de começar, certifique-se de que o seu ambiente possui as seguintes ferra
    ```bash
    java -jar target/product-management-0.0.1-SNAPSHOT.jar
    ```
-   A aplicacao nao tem configuracao de profile:
+
+    **Opção 3 - Via Docker-compose**: OBS: Com essa utilizacao utilizamos o perfil de prod e o banco de dados Postgres
+   ```bash
+   docker-compose up -d
+   ```
 
 4. **Verificar se a aplicação está rodando**:
 
