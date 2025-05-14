@@ -60,7 +60,7 @@ Antes de começar, certifique-se de que o seu ambiente possui as seguintes ferra
    Após a execução, o arquivo JAR será gerado em: `target/product-management-0.0.1-SNAPSHOT.jar`
 
 3. **Executar a aplicação**:
-   Você tem duas opções para executar a aplicação:
+   Você tem tres opções para executar a aplicação:
 
    **Opção 1 - Via Maven**:
    ```bash
