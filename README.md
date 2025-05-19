@@ -48,7 +48,7 @@ Antes de começar, certifique-se de que o seu ambiente possui as seguintes ferra
 
 1. **Clonar o repositório**:
    ```bash
-   git clone https://github.com/seu-usuario/product-management.git
+   git clone https://github.com/sauloddiniz/product-management.git
    cd product-management
    ```
 
